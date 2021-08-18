@@ -14,7 +14,7 @@ const Routes = () => {
              <Route exact path='/' component={Home}/>
              <Route exact path='/sobre' component={Sobre}/>
              <Route exact path='/contato' component={Contato}/>
-             <Route exact path='/produto' component={Produto}/>   
+             <Route exact path='/produto/:id' component={Produto}/>   
              <Route exact path='*' component={Erro}/>
             </Switch>
         </BrowserRouter>
