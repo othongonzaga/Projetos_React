@@ -4,7 +4,7 @@ import api from "../../services/api"
 import './home.css'
 
 export default function Home(){
-    const[filmes, setFilmes] = setState([])
+    const[filmes, setFilmes] = useState([])
 
     useEffect(() => {
 
