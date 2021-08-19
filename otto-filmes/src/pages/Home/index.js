@@ -10,7 +10,6 @@ export default function Home(){
 
         async function loadFilmes(){
             const response = await api.get('r-api/?api=filmes')
-            //console.log(response.data)
             setFilmes(response.data)
         }
 
