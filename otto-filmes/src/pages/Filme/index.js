@@ -16,7 +16,7 @@ export default function Filme(){
             const response = await api.get(`r-api/?api=filmes/${id}`)
 
             if(response.data.length === 0){
-                //Tentou acessar com um ID que não existe, navego ele para a home
+                //Se tentar acessar com um ID que não existe, mando ele para a home
                 history.replace('/')
                 return
             }
@@ -49,7 +49,7 @@ export default function Filme(){
 
             <div className='botoes'>
                 <button onClick={() => {}}>Salvar</button>
-                <button><a target='_blank' href={`https//youtube.com/results?search_query=${filme.nome} Trailer`}>
+                <button><a target='blank' href={`https//youtube.com/results?search_query=${filme.nome} Trailer`}>
                     Trailer
                 </a></button>
             </div>
