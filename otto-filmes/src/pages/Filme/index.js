@@ -1,5 +1,5 @@
-import './filme-info.csss'
-import {useParams} from 'react-router-dom'
+import './filme-info.css'
+import {useParams, useHistory} from 'react-router-dom'
 import api from '../../services/api'
 import { useEffect, useState } from 'react'
 import { loadConfig } from 'browserslist'
@@ -7,19 +7,29 @@ import { loadConfig } from 'browserslist'
 export default function Filme(){
     const {id} = useParams()
     const [filme, setFilmes] = useState([])
-    cosnt [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
+    const history = useHistory()
 
     useEffect(() => {
 
         async function loadFilmes(){
             const response = await api.get(`r-api/?api=filmes/${id}`)
-            //console.log(response.data)
+
+            if(response.data.length === 0){
+                //Tentou acessar com um ID que não existe, navego ele para a home
+                history.replace('/')
+                return
+            }
+
             setFilmes(response.data)
             setLoading(false)
         }
 
         loadFilmes()
-    },[id])
+        return() => {
+            console.log('Componeente desmontado')
+        }
+    },[id, history])
 
     if(loading){
         return(
@@ -31,7 +41,18 @@ export default function Filme(){
 
     return(
         <div className='filme-info'>
-            <h1></h1>
+            <h1>{filme.nome}</h1>
+            <img src={filme.foto} alt={filme.nome}/>
+
+            <h3>Sinopse</h3>
+            {filme.sinopse}
+
+            <div className='botoes'>
+                <button onClick={() => {}}>Salvar</button>
+                <button><a target='_blank' href={`https//youtube.com/results?search_query=${filme.nome} Trailer`}>
+                    
+                </a></button>
+            </div>
         </div>
     )
 }
