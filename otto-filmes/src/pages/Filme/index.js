@@ -6,7 +6,7 @@ import { loadConfig } from 'browserslist'
 
 export default function Filme(){
     const {id} = useParams()
-    const [filme, setFilmes] = useState([])
+    const [filme, setFilme] = useState([])
     const [loading, setLoading] = useState(true)
     const history = useHistory()
 
@@ -21,7 +21,7 @@ export default function Filme(){
                 return
             }
 
-            setFilmes(response.data)
+            setFilme(response.data)
             setLoading(false)
         }
 
