@@ -34,7 +34,7 @@ export default function Filme(){
     if(loading){
         return(
             <div className='filme-info'>
-                <h1>Carregando o filme</h1>
+                <h1>Carregando o filme...</h1>
             </div>
         )
     }
@@ -50,7 +50,7 @@ export default function Filme(){
             <div className='botoes'>
                 <button onClick={() => {}}>Salvar</button>
                 <button><a target='_blank' href={`https//youtube.com/results?search_query=${filme.nome} Trailer`}>
-                    
+                    Trailer
                 </a></button>
             </div>
         </div>
