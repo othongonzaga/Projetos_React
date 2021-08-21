@@ -2,7 +2,6 @@ import './filme-info.css'
 import {useParams, useHistory} from 'react-router-dom'
 import api from '../../services/api'
 import { useEffect, useState } from 'react'
-import { loadConfig } from 'browserslist'
 
 export default function Filme(){
     const {id} = useParams()

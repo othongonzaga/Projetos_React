@@ -11,7 +11,7 @@ export default function Favoritos(){
 
     }, [])
 
-    function handDelete(id){
+    function handleDelete(id){
         let filtroFilmes = filmes.filter((item) => {
             return(item.id !== id)
         })
@@ -32,7 +32,7 @@ export default function Favoritos(){
 
                             <div>
                                 <Link to={`/filme/${item.id}`}>Ver detalhes</Link>
-                                <button onClick={() => handDelete(item.id)}>Excluir</button>
+                                <button onClick={() => handleDelete(item.id)}>Excluir</button>
                             </div>
 
                         </li>
