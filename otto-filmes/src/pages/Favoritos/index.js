@@ -24,6 +24,8 @@ export default function Favoritos(){
         <div id='meus-filmes'>
             <h1>Meus Filmes</h1>
 
+            
+
             <ul>
                 {filmes.map((item) => {
                     return(
