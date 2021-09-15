@@ -5,6 +5,9 @@ function App() {
  const [titulo, setTitulo] = useState('')
  const [autor, setAutor] = useState('')
 
+ function handleAdd(){
+   alert('Clicou')
+ }
 
   return (
     <div clasName='App'>
