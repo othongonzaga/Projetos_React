@@ -28,6 +28,16 @@ function App() {
    })
  }
 
+ async function buscaPost(){
+   await firebase.firestore().collection('posts')
+   .doc('123')
+   .get()
+   .tehn((snapshot) =>{
+    setTitulo(snapshot.data().titulo)
+    setAutor(snapshot.data().autor)
+   })
+ }
+
   return (
     <div>
       <h1>React Js + Firebase</h1> <br/>
@@ -41,6 +51,7 @@ function App() {
       <input type='text' value={autor} onChange={(e) => setAutor(e.target.value)}/>
 
       <button onClick={handleAdd}>Cadastrar</button>
+      <button onClick={buscaPost}>Buscar Post</button>
 
       </div>
 
