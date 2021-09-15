@@ -5,6 +5,7 @@ import './style.css'
 function App() {
  const [titulo, setTitulo] = useState('')
  const [autor, setAutor] = useState('')
+ const [posts, setPosts] = useState([])
 
  async function handleAdd(){
    await firebase.firestore().collection('posts')
@@ -29,13 +30,38 @@ function App() {
  }
 
  async function buscaPost(){
-   await firebase.firestore().collection('posts')
+   /*await firebase.firestore().collection('posts')
    .doc('123')
    .get()
-   .tehn((snapshot) =>{
+   .then((snapshot) =>{
     setTitulo(snapshot.data().titulo)
     setAutor(snapshot.data().autor)
    })
+
+   .cath(() =>{
+     console.log('Deu algum erro!')
+   })*/
+
+   await firebase.firestore().collection('posts')
+   .get()
+   .then((snapshot) => {
+      let lista = []
+
+      snapshot.forEach((doc) =>{
+        lista.push({
+          id: doc.id,
+          titulo: doc.data().titulo,
+          autor: doc.data().autor
+        })
+      })
+
+      setPosts(lista)
+   })
+
+   .cath(() =>{
+     console.log('Deu algum erro!')
+   })
+
  }
 
   return (
@@ -51,7 +77,18 @@ function App() {
       <input type='text' value={autor} onChange={(e) => setAutor(e.target.value)}/>
 
       <button onClick={handleAdd}>Cadastrar</button>
-      <button onClick={buscaPost}>Buscar Post</button>
+      <button onClick={buscaPost}>Buscar Post</button> <br/>
+
+      <ul>
+        {posts.map((post) =>{
+          return(
+            <li key={posts.id }>
+              <span>Titulo: {post.titulo}</span> <br/>
+              <span>Autor: {post.autor}</span> <br/> <br/>
+            </li>
+          )
+        })}
+      </ul>
 
       </div>
 
