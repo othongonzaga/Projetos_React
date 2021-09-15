@@ -106,6 +106,14 @@ useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar ne
    })
  }
 
+ async function excluirPost(id){
+  await firebase.firestore().collection('posts').doc(id)
+  .delete()
+  .then(() =>{
+    alert('Esse post foi excluido!')
+  })
+ }
+
   return (
     <div>
       <h1>React Js + Firebase</h1> <br/>
@@ -132,7 +140,8 @@ useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar ne
             <li key={posts.id}>
               <span>ID - {post.id}</span>
               <span>Titulo: {post.titulo}</span> <br/>
-              <span>Autor: {post.autor}</span> <br/> <br/>
+              <span>Autor: {post.autor}</span> <br/>
+              <button onClick={() => excluirPost(post.id)}>Excluir post</button>
             </li>
           )
         })}
