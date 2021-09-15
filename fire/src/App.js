@@ -3,6 +3,7 @@ import firebase from './firebaseConnection'
 import './style.css'
 
 function App() {
+ const [idPost, setIdPost] = useState('')
  const [titulo, setTitulo] = useState('')
  const [autor, setAutor] = useState('')
  const [posts, setPosts] = useState([])
@@ -85,11 +86,34 @@ useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar ne
 
  }
 
+ async function editarPost(){
+   await firebase.firestore().collection('posts')
+   .doc(idPost)
+   .update({
+     titulo: titulo,
+     autor: autor
+   })
+
+   .then(() =>{
+     console.log('Dados atualizados')
+     setIdPost('')
+     setTitulo('')
+     setAutor('')
+   })
+
+   .catch(() =>{
+     console.log('Erro ao atualizar')
+   })
+ }
+
   return (
     <div>
       <h1>React Js + Firebase</h1> <br/>
 
       <div className='container'>
+
+      <label>ID:</label>
+      <input type='text' value={idPost} onChange={(e) => setIdPost(e.target.value)}/> 
 
       <label>Título: </label>
       <textarea type='text' value={titulo} onChange={(e) => setTitulo(e.target.value)}/>
@@ -98,12 +122,15 @@ useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar ne
       <input type='text' value={autor} onChange={(e) => setAutor(e.target.value)}/>
 
       <button onClick={handleAdd}>Cadastrar</button>
-      <button onClick={buscaPost}>Buscar Post</button> <br/>
+      <button onClick={buscaPost}>Buscar Post</button>
+      <button onClick={editarPost}>Editar</button> <br/>
+
 
       <ul>
         {posts.map((post) =>{
           return(
-            <li key={posts.id }>
+            <li key={posts.id}>
+              <span>ID - {post.id}</span>
               <span>Titulo: {post.titulo}</span> <br/>
               <span>Autor: {post.autor}</span> <br/> <br/>
             </li>
