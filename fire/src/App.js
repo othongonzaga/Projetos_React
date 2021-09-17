@@ -9,6 +9,8 @@ function App() {
  const [posts, setPosts] = useState([])
  const [email, setEmail] = useState('')
  const [senha, setSenha] = useState('')
+ const [user, setUser] = useState(false)
+ const [userLogged, setUserLogged] = useState({})
 
 useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar necessário)
   async function loadPosts(){
@@ -29,6 +31,25 @@ useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar ne
   }
 
   loadPosts()
+}, [])
+
+useEffect(() =>{
+  async function checkLogin(){
+    await firebase.auth().onAuthStateChanged((used) =>{
+      if(user){ //Se tem usuário logado entra aqui
+        setUser(true)
+        setUserLogged({
+          uid: user.uid,
+          email: user.email
+        })
+      }else{
+        setUser(false)
+        setUserLogged({})
+      }
+    })
+  }
+
+  checkLogin()
 }, [])
 
  async function handleAdd(){
@@ -138,6 +159,14 @@ useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar ne
   return (
     <div>
       <h1>React Js + Firebase</h1> <br/>
+
+      {user &&(
+        <div>
+          <strong>Seja bem vindo!</strong><br/>
+          <span>{userLogged.uid} - {userLogged.email}</span>
+          <br/><br/>
+        </div>
+      )}
 
       <div className='container'>
         <label>Email</label>
