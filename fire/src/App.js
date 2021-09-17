@@ -118,12 +118,16 @@ useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar ne
 
  async function novoUsuario(){
     await firebase.auth().createUserWithEmailAndPassword(email, senha)
-    .then(() =>{
-      console.log('Cadastrado com sucesso')
+    .then((value) =>{
+      console.log(value)
     })
 
     .catch((error) =>{
-      console.log('error' + error)
+      if(error.code === 'auth/weak-passoword'){
+        alert('Senha muito fraca!')
+      }else if(error.code === 'auth/email-already-in-use'){
+        alert('Email já está sendo usado!')
+      }
     })
  }
 
