@@ -131,6 +131,10 @@ useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar ne
     })
  }
 
+ async function logout(){
+   await firebase.auth().signOut()
+ }
+
   return (
     <div>
       <h1>React Js + Firebase</h1> <br/>
@@ -143,6 +147,7 @@ useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar ne
         <input type='password' value={senha} onChange={(e) =>setSenha(e.target.value)}/><br/>
 
         <button onClick={novoUsuario}>Cadastrar</button>
+        <button onClick={logout}>Sair da conta</button>
       </div>
 
       <br/>
