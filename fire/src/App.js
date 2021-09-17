@@ -156,6 +156,17 @@ useEffect(() =>{
    await firebase.auth().signOut()
  }
 
+ async function fazerLogin(){
+   await firebase.auth().signInWithEmailAndPassword(email, senha)
+   .then((value) =>{
+     console.log(value.user)
+   })
+
+   .catch((error) =>{
+     console.log('error' + error)
+   })
+ }
+
   return (
     <div>
       <h1>React Js + Firebase</h1> <br/>
@@ -193,6 +204,7 @@ useEffect(() =>{
       <label>Autor: </label>
       <input type='text' value={autor} onChange={(e) => setAutor(e.target.value)}/>
 
+      <button onClick={fazerLogin}>Fazer Login</button>  
       <button onClick={handleAdd}>Cadastrar</button>
       <button onClick={buscaPost}>Buscar Post</button>
       <button onClick={editarPost}>Editar</button> <br/>
