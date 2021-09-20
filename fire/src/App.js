@@ -11,6 +11,8 @@ function App() {
  const [senha, setSenha] = useState('')
  const [user, setUser] = useState(false)
  const [userLogged, setUserLogged] = useState({})
+ const [nome, setNome] = useState('')
+ const [cargo, setCargo] = useState('')
 
 useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar necessário)
   async function loadPosts(){
@@ -194,6 +196,12 @@ useEffect(() =>{
       )}
 
       <div className='container'>
+        <label>Nome</label>
+        <input type='text' value={nome} onChange={(e) =>setNome(e.target.value)}/><br/>
+
+        <label>Cargo</label>
+        <input type='text' value={cargo} onChange={(e) =>setCargo(e.target.value)}/><br/>
+
         <label>Email</label>
         <input type='text' value={email} onChange={(e) =>setEmail(e.target.value)}/><br/>
 
