@@ -9,10 +9,11 @@ function App() {
  const [posts, setPosts] = useState([])
  const [email, setEmail] = useState('')
  const [senha, setSenha] = useState('')
- const [user, setUser] = useState(false)
+ //const [user, setUser] = useState(false)
  const [userLogged, setUserLogged] = useState({})
  const [nome, setNome] = useState('')
  const [cargo, setCargo] = useState('')
+ const [user, setUser] = useState({})
 
 useEffect(() => { //Exemplo de como trabalhar com Real Time(Usar quando achar necessário)
   async function loadPosts(){
@@ -170,6 +171,7 @@ useEffect(() =>{
 
  async function logout(){
    await firebase.auth().signOut()
+   setUser({})
  }
 
  async function fazerLogin(){
@@ -180,6 +182,27 @@ useEffect(() =>{
 
    .catch((error) =>{
      console.log('error' + error)
+   })
+ }
+
+ async function login(){
+   await firebase.auth().signInWithEmailAndPassword(email, senha)
+   .then(async(value) =>{
+    await firebase.firestore().collection('users')
+    .doc(value.user.uid)
+    .get()
+    .then((snapshot) =>{
+      setUser({
+        nome: snapshot.data().nome,
+        cargo: snapshot.data().cargo,
+        status: snapshot.data().status,
+        email: value.user.email
+      })
+    })
+   })
+
+   .catch((error) =>{
+     console.log('Erro ao logar' + error)
    })
  }
 
@@ -208,13 +231,23 @@ useEffect(() =>{
         <label>Senha</label>
         <input type='password' value={senha} onChange={(e) =>setSenha(e.target.value)}/><br/>
 
+        <button onClick={login}>Fazer Login</button>
         <button onClick={novoUsuario}>Cadastrar</button>
         <button onClick={logout}>Sair da conta</button>
       </div>
 
-      <br/>
+      <hr/> <br/>
 
-      <div className='container'>
+      {Object.keys(user).length > 0 && (
+        <div>
+          <strong>Olá </strong> {user.nome} <br/>
+          <strong>Cargo: </strong> {user.cargo} <br/>
+          <strong>Email: </strong> {user.email} <br/>
+          <strong>Status: </strong> {user.status ? 'Ativo' : 'Desativado'} <br/>
+        </div>
+      )}
+
+      {/* <div className='container'>
 
       <h2>Banco de Dados:</h2>
       <label>ID:</label>
@@ -245,7 +278,7 @@ useEffect(() =>{
         })}
       </ul>
 
-      </div>
+      </div> */}
 
     </div>
   );
