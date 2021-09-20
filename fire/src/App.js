@@ -137,10 +137,24 @@ useEffect(() =>{
   })
  }
 
+ //Auth com Banco de Dados
  async function novoUsuario(){
     await firebase.auth().createUserWithEmailAndPassword(email, senha)
-    .then((value) =>{
-      console.log(value)
+    .then(async(value) =>{
+      await firebase.firestore().collection('users')
+      .doc(value.user.uid)
+      .set({
+        nome: nome,
+        cargo: cargo,
+        status: true,
+      })
+
+      .then(() =>{
+        setNome('')
+        setCargo('')
+        setEmail('')
+        setSenha('')
+      })
     })
 
     .catch((error) =>{
