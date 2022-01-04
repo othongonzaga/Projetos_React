@@ -83,12 +83,12 @@ const AddEdit = () => {
         className="add-edit__form"
         onSubmit={handleSubmit}
       >
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="name">Nome:</label>
         <input
           type="text"
           id="name"
           name="name"
-          placeholder="Your Name..."
+          placeholder="Seu Nome..."
           value={name || ""}
           onChange={handleInputChange}
         />
@@ -98,22 +98,22 @@ const AddEdit = () => {
           type="email"
           id="email"
           name="email"
-          placeholder="Your Email..."
+          placeholder="Seu Email..."
           value={email || ""}
           onChange={handleInputChange}
         />
 
-        <label htmlFor="contact">Contact:</label>
+        <label htmlFor="contact">Contato:</label>
         <input
           type="number"
           id="contact"
           name="contact"
-          placeholder="Your Contact No..."
+          placeholder="Seu Contato..."
           value={contact || ""}
           onChange={handleInputChange}
         />
 
-        <input type="submit" value={id ? "Update" : "Save"} />
+        <input type="submit" value={id ? "Atualizar" : "Salvar"} />
       </form>
     </div>
   );

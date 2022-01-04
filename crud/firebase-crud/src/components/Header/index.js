@@ -29,7 +29,7 @@ const Header = () =>{
                         className={`${activeTab ==="AddContact" ? "atice" : ""}`}
                         onClick={() => setActiveTab("Adicionar Contato")}
                         >
-                            Home
+                            Adicionar Contato
                     </p>
                 </Link>
             </div>

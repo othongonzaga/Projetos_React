@@ -28,7 +28,7 @@ const Home = () => {
         if (err) {
           console.log(err);
         } else {
-          toast.success("User Delete Successfully");
+          toast.success("Usuári deletado com sucesso");
         }
       });
     }
@@ -39,10 +39,10 @@ const Home = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Nome</th>
             <th>Email</th>
-            <th>Contact</th>
-            <th>Action</th>
+            <th>Contato</th>
+            <th>Ação</th>
           </tr>
         </thead>
         <tbody>
@@ -55,13 +55,13 @@ const Home = () => {
                 <td>{data[id].contact}</td>
                 <td>
                   <Link to={`/update/${id}`}>
-                    <button className="btn btn-edit">Edit</button>
+                    <button className="btn btn-edit">Editar</button>
                   </Link>
                   <button
                     className="btn btn-delete"
                     onClick={() => onDelete(id)}
                   >
-                    Delete
+                    Excluir
                   </button>
                   <Link to={`/view/${id}`}>
                     <button className="btn btn-view">View</button>
