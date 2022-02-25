@@ -4,10 +4,12 @@ import styles from './Projects.module.css'
 import LinkButton from "../layout/LinkButton"
 import ProjectCard from './project/ProjectCard'
 import {useState, useEffect} from 'react-router-dom'
+import Loading from "../layout/Loading"
 
 function Projects(){
     const [projects, setProjects] = useSate([])
     const location = useLocation()
+    const [removeLoading, setRemoveLoading] = useState(false)
     let message = ''
 
     if(location.state){
@@ -24,6 +26,7 @@ function Projects(){
             .then((resp) => resp.json())
             .then((data) =>{
                 setProjects(data)
+                setRemoveLoading(true)
             })
             .catch((err) => console.log(err))
     }, [])
@@ -46,6 +49,10 @@ function Projects(){
                     key={project.id}
                     />
                 })}
+                {!removeLoading && <Loading/>}
+                {removeLoading && projects.length === 0 &&(
+                    <p>Não tem projetos cadastrados!</p>
+                )}
             </Container>
         </div>
     )
